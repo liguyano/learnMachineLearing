@@ -117,7 +117,21 @@ for i in range(100):
         min_left=left_geni
         m_age=t_age
         print(min_left, m_age)
-    t_age+=0.5
-
+    t_age+=2
+print(min_left, m_age)
+newData = data[data['Age']>m_age]
+for i in range(100):
+    sample=newData.sample(40)
+    left=sample[sample['Age']<=t_age]
+    right=sample[sample['Age']>t_age]
+    left_geni=gini_impurity(left)
+    right_geni=gini_impurity(right)
+    if len(left) == 0 or len(right) == 0:
+        continue  # 跳过无效分裂
+    if left_geni<= min_left:
+        min_left=left_geni
+        m_age=t_age
+        print(min_left, m_age)
+    t_age+=2
 print(min_left,m_age)
 
